@@ -67,7 +67,7 @@ class LoginView(QWidget):
 
     FIELD_QSS = (f"QLineEdit{{background:#0a1830;color:{theme.TEXT};"
                  f"border:1px solid {theme.BORDER};border-radius:10px;"
-                 f"padding:6px 12px;text-align:center;}}"
+                 f"padding:4px 10px;text-align:center;}}"
                  f"QLineEdit:focus{{border:1px solid {theme.CYAN};}}")
 
     def __init__(self, parent=None):
@@ -78,7 +78,7 @@ class LoginView(QWidget):
         outer.addStretch(1)
 
         box = QWidget()
-        box.setMaximumWidth(360)
+        box.setMaximumWidth(300)
         form = QVBoxLayout(box)
         form.setSpacing(12)
 
@@ -94,9 +94,10 @@ class LoginView(QWidget):
         self.name = QLineEdit()
         self.name.setPlaceholderText("Commander name")
         self.name.setMaxLength(24)
-        self.name.setFont(mono(11))
+        self.name.setFont(mono(10))
         self.name.setStyleSheet(self.FIELD_QSS)
-        self.name.setMinimumHeight(36)
+        self.name.setMinimumHeight(32)
+        self.name.setMaximumHeight(32)
         self.name.returnPressed.connect(self._submit)
 
         self.error = QLabel("")
