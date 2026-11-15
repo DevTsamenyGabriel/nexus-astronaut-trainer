@@ -979,7 +979,18 @@ class Controller(QObject):
             except Exception:
                 pass
         self.orb.say(sentence, 5.0)
-        self.speech.say(sentence)
+        self.speech.say(sentence, mood=self._speech_mood())
+
+    def _speech_mood(self) -> str:
+        """ElevenLabs v3 audio tag for the current moment."""
+        try:
+            if self.backend.get_active_event():
+                return "tense"
+            if getattr(self.state, "status", "") in ("success", "failed"):
+                return "emotional"
+        except Exception:
+            pass
+        return "warmly"
 
     def _on_action(self, rid: int, action: dict) -> None:
         if rid != self._req:

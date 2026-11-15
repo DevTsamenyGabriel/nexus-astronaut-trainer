@@ -119,13 +119,13 @@ class MicRecorder:
         return np.concatenate(chunks).reshape(-1)
 
 
-def speak(text: str, on_done=None) -> None:
+def speak(text: str, on_done=None, mood: str = "") -> None:
     """Speak via ElevenLabs, falling back to Windows SAPI."""
     global _proc, _el_playing
     wav = None
     if tts_eleven is not None:
         try:
-            wav = tts_eleven.synthesize(text)
+            wav = tts_eleven.synthesize(text, mood=mood)
         except Exception:
             wav = None
     if wav:
@@ -204,7 +204,7 @@ class SpeechQueue:
     def __init__(self, on_idle=None, on_speaking=None):
         self.on_idle = on_idle
         self.on_speaking = on_speaking
-        self._q: queue.Queue[tuple[int, str]] = queue.Queue()
+        self._q: queue.Queue[tuple[int, str, str]] = queue.Queue()
         self._gen = 0
         self._pending = 0
         self._lock = threading.Lock()
@@ -215,13 +215,13 @@ class SpeechQueue:
         with self._lock:
             return self._pending == 0
 
-    def say(self, sentence: str) -> None:
+    def say(self, sentence: str, mood: str = "") -> None:
         if not sentence.strip():
             return
         with self._lock:
             self._pending += 1
             gen = self._gen
-        self._q.put((gen, sentence))
+        self._q.put((gen, sentence, mood))
 
     def stop(self) -> None:
         with self._lock:
@@ -238,11 +238,11 @@ class SpeechQueue:
 
     def _run(self) -> None:
         while True:
-            gen, first = self._q.get()
+            gen, first, mood = self._q.get()
             batch, count = [first], 1
             while True:
                 try:
-                    next_gen, sentence = self._q.get_nowait()
+                    next_gen, sentence, _m = self._q.get_nowait()
                 except queue.Empty:
                     break
                 if next_gen == gen:
@@ -253,7 +253,7 @@ class SpeechQueue:
             if not stale:
                 if self.on_speaking:
                     self.on_speaking(True)
-                speak(" ".join(batch))
+                speak(" ".join(batch), mood=mood)
             idle = False
             with self._lock:
                 if gen == self._gen:

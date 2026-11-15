@@ -85,7 +85,8 @@ SYSTEM_PROMPT = (
     "numbers or results. Mention an event only if the mission state says one is active. "
     "Use only numbers given in the mission state and call them simulation values. "
     "Radiation figures are planning references, never medical clearance. "
-    "Answer in 2-4 concise sentences, in a calm professional tone."
+    "Answer in 2-4 concise sentences, in a warm, calm, professional tone — "
+    "like a trusted AI companion: reassuring, clear, never robotic."
 )
 
 
