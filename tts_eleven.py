@@ -33,6 +33,7 @@ FALLBACK_MODEL_ID = "eleven_multilingual_v2"   # no audio-tag support
 _TAG_MODEL = "eleven_v3"     # models that understand [audio tags]
 SAMPLE_RATE = 16000          # matches output_format=pcm_16000
 MAX_CHARS = 400              # protects the character quota
+SPEED = float(os.environ.get("ELEVENLABS_SPEED", "1.15"))  # 0.7-1.2, medium-fast
 LAST_ERROR = ""
 
 
@@ -69,7 +70,7 @@ def _pcm_to_wav(pcm: bytes) -> bytes:
 
 
 def _cache_path(text: str, model: str) -> Path:
-    raw = f"{_voice()}|{model}|{text}".encode("utf-8")
+    raw = f"{_voice()}|{model}|{SPEED}|{text}".encode("utf-8")
     return CACHE_DIR / (hashlib.sha256(raw).hexdigest()[:24] + ".wav")
 
 
@@ -78,7 +79,8 @@ def _request(key: str, voice: str, model: str, text: str):
     global LAST_ERROR
     url = (API_URL + urllib.parse.quote(voice) + "?"
            + urllib.parse.urlencode({"output_format": "pcm_16000"}))
-    body = json.dumps({"text": text, "model_id": model}).encode("utf-8")
+    body = json.dumps({"text": text, "model_id": model,
+                       "voice_settings": {"speed": SPEED}}).encode("utf-8")
     req = urllib.request.Request(url, data=body, method="POST", headers={
         "xi-api-key": key, "Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=TIMEOUT_S) as resp:
