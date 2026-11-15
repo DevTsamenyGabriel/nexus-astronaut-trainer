@@ -38,19 +38,8 @@ The **Full Mission** runs 30 days with random events from a fixed table. Quick R
 
 ## 🧠 How it works
 
-```
-Login → Moon/Mars + Quick/Full → transition video → "Are you ready?" → dashboard
-                                                                        │
-              typed command / button click / voice ─────────────────────┤
-                                                                        ▼
-                                   Controller (main.py) ──► backend.py  (deterministic simulation)
-                                          │                      │
-                                          │                      └─► events.py (fixed events and effects)
-                                          ▼
-                                   knowledge.py (retrieval from chroma_db)
-                                          ▼
-                              NASA: banner with citation (evidence_bank.py maps events to questions)
-```
+<img width="1266" height="1494" alt="image" src="https://github.com/user-attachments/assets/d496eb33-f5cf-44ac-8e97-c93bcdc1d943" />
+
 
 - **Simulation:** `backend.py`, `events.py`, `state.py`, `config.py`.
 - **RAG:** `knowledge.py` (retrieval, citations, offline fallback) and `evidence_bank.py` (the fixed question for each event and the NASA-aligned option).
