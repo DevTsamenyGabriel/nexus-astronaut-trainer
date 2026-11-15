@@ -1,0 +1,11 @@
+PyQt6>=6.4
+python-dotenv>=1.0
+openai>=1.40
+sounddevice>=0.4
+numpy>=1.26
+groq
+vosk
+pyttsx3
+chromadb>=0.5
+pymupdf
+pymupdf4llm

@@ -1,0 +1,33 @@
+# Secrets — never commit API keys
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+
+# Build output
+dist/
+build/
+*.spec
+
+# Large / regenerable data (re-download or re-run RAG_TEST\injest.py)
+models/
+nasa_docs/
+chroma_db/
+data_cache/
+
+# Local runtime files
+profiles.json
+scene_test.png
+dash_err.txt
+dash_test.log
+headings.txt
+survey.txt

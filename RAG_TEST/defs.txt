@@ -1,0 +1,383 @@
+﻿main.py:34: def _excepthook(exc_type, exc, tb):
+main.py:60: class StreamWorker(QThread):
+main.py:65: def __init__(self, backend, text, state, rid, parent=None):
+main.py:69: def run(self):
+main.py:82: class TranscribeWorker(QThread):
+main.py:85: def __init__(self, backend, audio, parent=None):
+main.py:89: def run(self):
+main.py:97: class DataWorker(QThread):
+main.py:101: def run(self):
+main.py:115: class Controller(QObject):
+main.py:135: def __init__(self, app: QApplication, name: str = "") -> None:
+main.py:210: def _on_wake(self) -> None:
+main.py:215: def _on_speaking_changed(self, talking: bool) -> None:
+main.py:221: def _update_wake(self) -> None:
+main.py:229: def start(self, greet: bool = True) -> None:
+main.py:242: def _greet(self) -> None:
+main.py:252: def show_dashboard(self) -> None:
+main.py:257: def _shutdown(self) -> None:
+main.py:268: def _start_data_fetch(self) -> None:
+main.py:279: def _on_data(self, data: dict) -> None:
+main.py:280: def st(item):
+main.py:298: def _base_state(self) -> str:
+main.py:301: def _sync_orb(self) -> None:
+main.py:305: def interrupt(self) -> None:
+main.py:319: def _snapshot(self) -> dict:
+main.py:332: def _verdict(self, snap: dict):
+main.py:347: def _show_report(self, headline: str, note: str, before: dict, after: dict) -> None:
+main.py:361: def _report_after(self, clean: str, before: dict, effort) -> None:
+main.py:385: def handle_command(self, text: str):
+main.py:414: def _run_command(self, clean: str) -> str:
+main.py:478: def _event_text(self, event: dict) -> str:
+main.py:482: def _status_text(self) -> str:
+main.py:495: def _after_day(self, state) -> str:
+main.py:504: def _deliver_reply(self, reply: str) -> None:
+main.py:513: def _daily_evidence(self) -> None:
+main.py:535: def _refresh_evidence(self) -> None:
+main.py:564: def _typed_choice(self, text: str):
+main.py:611: def _daily_prompt(self, sim):
+main.py:632: def _offer_daily(self) -> None:
+main.py:652: def _typed_daily(self, text: str):
+main.py:666: def _close_intel(self) -> None:
+main.py:677: def _pick_sentence(text: str, question: str, limit: int = 190) -> str:
+main.py:704: def _show_debrief(self, event: dict, option_id: str, note: str) -> None:
+main.py:737: def _show_decision_evidence(self, event: dict, option_id: str) -> None:
+main.py:766: def _check_end(self) -> None:
+main.py:787: def _show_end(self, sim) -> None:
+main.py:819: def begin_mission(self, dest: str) -> None:
+main.py:829: def _on_restart(self, dest: str) -> None:
+main.py:835: def choose_daily_effort(self, effort: str) -> None:
+main.py:844: def choose_event_option(self, option_id: str) -> None:
+main.py:905: def send_user_message(self, text: str) -> None:
+main.py:946: def _on_sentence(self, rid: int, sentence: str) -> None:
+main.py:965: def _on_action(self, rid: int, action: dict) -> None:
+main.py:978: def _on_stream_done(self, rid: int) -> None:
+main.py:996: def _maybe_finish(self) -> None:
+main.py:1004: def run_action(self, action: dict) -> None:
+main.py:1041: def toggle_listening(self) -> None:
+main.py:1047: def start_listening(self) -> None:
+main.py:1064: def stop_listening(self) -> None:
+main.py:1084: def _on_transcribed(self, text: str) -> None:
+main.py:1094: def eventFilter(self, obj, event):
+main.py:1116: def main() -> int:
+main.py:1125: def on_ready(name: str, dest: str) -> None:
+backend.py:48: def _clip(v, lo=0.0, hi=100.0):
+backend.py:52: def _publishes(fn):
+backend.py:55: def wrapper(self, *a, **k):
+backend.py:91: class StreamParser:
+backend.py:94: def __init__(self):
+backend.py:99: def feed(self, delta: str) -> list[str]:
+backend.py:115: def finish(self):
+backend.py:134: class NexusBackend:
+backend.py:139: def __init__(self):
+backend.py:155: def bind(self, ui_state):
+backend.py:160: def _publish(self):
+backend.py:168: def start_mission(self, name, destination, seed=None):
+backend.py:180: def get_state(self):
+backend.py:183: def get_active_event(self):
+backend.py:187: def _delay(day, dest):
+backend.py:191: def _solar(self):
+backend.py:198: def _norm(alloc):
+backend.py:205: def advance_day(self, allocation=None):
+backend.py:248: def _update_status(self):
+backend.py:270: def _roll_event(self):
+backend.py:283: def _apply_effects(self, eff):
+backend.py:302: def apply_choice(self, option_id):
+backend.py:320: def _state_context(self, state: MissionState) -> str:
+backend.py:344: def _chat(self, user_text: str, state: MissionState) -> str:
+backend.py:357: def _build_messages(self, user_text: str, state: MissionState):
+backend.py:364: def ask(self, question):
+backend.py:372: def respond_stream(self, user_text, state):
+backend.py:411: def transcribe(self, audio) -> str | None:
+backend.py:436: def greeting(self, state: MissionState) -> str:
+backend.py:450: def respond(self, user_text: str, state: MissionState) -> str:
+backend.py:460: def _status_reply(self, state: MissionState) -> str:
+events.py:9: class Option:
+events.py:17: class Event:
+events.py:98: def eligible(destination, day):
+evidence_bank.py:24: def question_for(event_id, day) -> tuple:
+evidence_bank.py:32: def aligned_option(event_id):
+knowledge.py:45: def _get_collection():
+knowledge.py:54: def _citation(meta: dict) -> str:
+knowledge.py:67: def _unique(items):
+knowledge.py:76: def _retrieve(question: str):
+knowledge.py:85: def _groq_answer(question: str, chunks) -> str:
+knowledge.py:110: def _is_refusal(text: str) -> bool:
+knowledge.py:114: def _clean_excerpt(text: str, limit: int = 320) -> str:
+knowledge.py:150: def _score_sentence(sentence: str, words) -> float:
+knowledge.py:168: def evidence(question: str) -> dict:
+knowledge.py:205: def ask(question: str) -> dict:
+config.py:9: def set_days(days: int) -> None:
+config.py:15: def is_quick() -> bool:
+active_event_card.py:11: class ActiveEventCard(Panel):
+active_event_card.py:12: def __init__(self, parent=None):
+active_event_card.py:36: def set_event(self, event) -> None:
+briefing_card.py:22: class BriefingCard(QFrame):
+briefing_card.py:25: def __init__(self, parent=None):
+briefing_card.py:126: def show_briefing(self) -> None:
+briefing_card.py:130: def hide_briefing(self) -> None:
+briefing_card.py:133: def place(self, parent_width: int, parent_height: int) -> None:
+briefing_card.py:144: def start_buttons(self) -> list:
+chat.py:22: class MessageRow(QWidget):
+chat.py:25: def __init__(self, text: str, is_user: bool, parent=None):
+chat.py:77: def append_text(self, text: str) -> None:
+chat.py:80: def _fade_in(self) -> None:
+chat.py:91: def _fade_done(self) -> None:
+chat.py:95: class TypingRow(QWidget):
+chat.py:98: def __init__(self, parent=None):
+chat.py:116: def _step(self) -> None:
+chat.py:121: class SourceRow(QWidget):
+chat.py:124: def __init__(self, sources: list, from_nasa: bool = True, parent=None):
+chat.py:161: def _tick(self) -> None:
+chat.py:168: class ChatView(Panel):
+chat.py:184: def __init__(self, parent=None):
+chat.py:275: def set_log_visible(self, visible: bool) -> None:
+chat.py:284: def add_message(self, text: str, is_user: bool) -> MessageRow:
+chat.py:290: def add_action_chip(self, text: str) -> None:
+chat.py:301: def add_sources(self, sources: list, from_nasa: bool = True) -> "SourceRow":
+chat.py:308: def show_typing(self) -> None:
+chat.py:314: def hide_typing(self) -> None:
+chat.py:320: def set_listening(self, listening: bool) -> None:
+chat.py:323: def set_busy(self, busy: bool) -> None:
+chat.py:329: def set_speaking(self, speaking: bool) -> None:
+chat.py:333: def set_alert(self, active: bool) -> None:
+chat.py:350: def _submit(self) -> None:
+chat.py:356: def _on_range(self, _lo: int, hi: int) -> None:
+chat.py:359: def _scroll_bottom(self) -> None:
+common.py:15: def mono(size: float = 10, bold: bool = False, spacing: float = 0.0) -> QFont:
+common.py:27: def section_title(text: str, color: str = theme.CYAN) -> QLabel:
+common.py:35: def panel_qss(border: str, top: str = "rgba(15,29,51,238)",
+common.py:44: class Panel(QFrame):
+common.py:47: def __init__(self, title: str = "", accent: str = theme.BORDER,
+common.py:63: class PulseDot(QWidget):
+common.py:66: def __init__(self, color: str, pulse: bool = True, size: int = 14, parent=None):
+common.py:78: def set_color(self, color: str) -> None:
+common.py:82: def set_pulse(self, pulse: bool) -> None:
+common.py:90: def _advance(self) -> None:
+common.py:94: def paintEvent(self, _):
+common.py:110: class BarWidget(QWidget):
+common.py:113: def __init__(self, color: str, height: int = 8, parent=None):
+common.py:120: def set_value(self, frac: float) -> None:
+common.py:126: def set_color(self, color: str) -> None:
+common.py:130: def paintEvent(self, _):
+common.py:146: class Avatar(QLabel):
+common.py:149: def __init__(self, text: str, color: str, size: int = 36, parent=None):
+common.py:161: class RoundButton(QAbstractButton):
+common.py:164: def __init__(self, kind: str, size: int = 48, parent=None):
+common.py:177: def set_active(self, active: bool) -> None:
+common.py:186: def _advance(self) -> None:
+common.py:190: def paintEvent(self, _):
+common.py:217: def _draw_mic(p: QPainter, c: QPointF, color: QColor) -> None:
+common.py:232: def _draw_send(p: QPainter, c: QPointF) -> None:
+dashboard.py:38: class SpaceBackground(QWidget):
+dashboard.py:41: def __init__(self, parent=None):
+dashboard.py:47: def paintEvent(self, _):
+dashboard.py:90: class MissionView(QWidget):
+dashboard.py:103: def __init__(self, chat, parent=None):
+dashboard.py:140: def _on_log_toggled(self, is_open: bool) -> None:
+dashboard.py:147: def place_chrome(self) -> None:
+dashboard.py:169: def eventFilter(self, obj, event):
+dashboard.py:180: def place_briefing(self) -> None:
+dashboard.py:184: def set_running(self, running: bool) -> None:
+dashboard.py:194: def place_card(self) -> None:
+dashboard.py:198: def show_event(self, event: dict) -> None:
+dashboard.py:207: def hide_event(self) -> None:
+dashboard.py:214: def show_daily(self, day: int, question: str, items) -> None:
+dashboard.py:225: def hide_daily(self) -> None:
+dashboard.py:232: def place_intel(self) -> None:
+dashboard.py:236: def intel_start(self, question: str) -> None:
+dashboard.py:244: def intel_append(self, sentence: str) -> None:
+dashboard.py:247: def intel_sources(self, sources, from_nasa: bool) -> None:
+dashboard.py:254: def intel_close(self) -> None:
+dashboard.py:257: def debrief_start(self, nasa_line: str, chip_label: str = "CONTINUE  ›  NEXT DAY",
+dashboard.py:272: def debrief_finish(self) -> None:
+dashboard.py:283: def _on_debrief_done(self) -> None:
+dashboard.py:294: def _on_intel_closed(self) -> None:
+dashboard.py:306: def place_report(self) -> None:
+dashboard.py:310: def report_show(self, headline: str, status_text: str, level: str,
+dashboard.py:319: def report_hide(self) -> None:
+dashboard.py:323: def place_result(self) -> None:
+dashboard.py:327: def result_show(self, success: bool, headline: str, detail: str, stats) -> None:
+dashboard.py:339: def result_hide(self) -> None:
+dashboard.py:345: class DashboardWindow(QMainWindow):
+dashboard.py:355: def __init__(self, state: MissionState):
+dashboard.py:438: def _sync_event(self) -> None:
+dashboard.py:456: def _refresh_scene(self) -> None:
+dashboard.py:471: def _fit_columns(self) -> None:
+dashboard.py:481: def resizeEvent(self, event) -> None:
+dashboard.py:486: def set_space_weather(self, proton, sep) -> None:
+dashboard.py:494: def set_ai_status(self, online) -> None:
+dashboard.py:499: def open_scenario(self) -> None:
+dashboard.py:504: def show_view(self, index: int) -> None:
+dashboard.py:508: def set_evidence(self, mode: str, title: str, excerpt: str, source: str, status_text: str) -> None:
+dashboard.py:511: def set_evidence_empty(self, title: str, message: str) -> None:
+dashboard.py:514: def clear_evidence(self) -> None:
+dashboard.py:517: def flash(self, name: str) -> None:
+dashboard.py:530: def closeEvent(self, event) -> None:
+destination_screen.py:28: class DestinationScreen(QWidget):
+destination_screen.py:31: def __init__(self, parent=None):
+destination_screen.py:61: def set_commander(self, name: str) -> None:
+destination_screen.py:66: def reset(self) -> None:
+destination_screen.py:72: def _card(self, dest: str, title: str, image_name: str) -> QFrame:
+destination_screen.py:105: def _choose(self, value: str) -> None:
+entry_flow.py:13: class EntryWindow(QStackedWidget):
+entry_flow.py:17: def __init__(self, parent=None):
+entry_flow.py:35: def _on_name(self, name: str) -> None:
+entry_flow.py:41: def _on_dest(self, dest: str) -> None:
+entry_flow.py:47: def _on_video_done(self) -> None:
+entry_flow.py:53: def back_to_destination(self) -> None:
+entry_flow.py:59: def resizeEvent(self, event) -> None:
+event_card.py:26: class EventCard(QObject):
+event_card.py:30: def __init__(self, bar, choices, parent=None):
+event_card.py:36: def show_event(self, event: dict) -> None:
+event_card.py:45: def show_daily(self, question: str, items) -> None:
+event_card.py:49: def set_message(self, text: str, alert: bool = False) -> None:
+event_card.py:53: def hide_event(self) -> None:
+event_card.py:58: def hide(self) -> None:
+event_card.py:61: def show(self) -> None:
+event_card.py:65: def raise_(self) -> None:
+event_card.py:68: def isHidden(self) -> bool:
+event_card.py:71: def setGeometry(self, *args) -> None:
+event_card.py:74: def option_buttons(self) -> list:
+event_card.py:77: def explain_button(self):
+evidence_card.py:15: def _clip(text: str) -> str:
+evidence_card.py:26: class EvidenceCard(Panel):
+evidence_card.py:27: def __init__(self, parent=None):
+evidence_card.py:81: def show_evidence(self, mode: str, title: str, excerpt: str, source: str, status_text: str) -> None:
+evidence_card.py:89: def show_empty(self, title: str, message: str) -> None:
+evidence_card.py:97: def clear(self) -> None:
+info_views.py:15: def _label(text: str, color: str, size: float = 10, bold: bool = False) -> QLabel:
+info_views.py:23: def _scroll_body(panel: Panel) -> QVBoxLayout:
+info_views.py:40: def _row(title: str, detail: str, chip_text=None, chip_color: str = theme.MUTED) -> QFrame:
+info_views.py:60: class SpaceHazardsView(Panel):
+info_views.py:61: def __init__(self, parent=None):
+info_views.py:92: class KnowledgeView(Panel):
+info_views.py:109: def __init__(self, parent=None):
+intel_panel.py:17: def short_sources(sources) -> list:
+intel_panel.py:30: class IntelPanel(QFrame):
+intel_panel.py:35: def __init__(self, parent=None):
+intel_panel.py:105: def start(self, question: str) -> None:
+intel_panel.py:113: def set_continue_visible(self, visible: bool) -> None:
+intel_panel.py:117: def append_answer(self, sentence: str) -> None:
+intel_panel.py:126: def set_sources(self, sources, from_nasa: bool) -> None:
+intel_panel.py:138: def hide_panel(self) -> None:
+intel_panel.py:146: def place(self, parent_width: int, parent_height: int) -> None:
+intel_panel.py:153: def answer_text(self) -> str:
+levers.py:20: def _qss(color: str, active: bool) -> str:
+levers.py:32: class LeverBar(QWidget):
+levers.py:35: def __init__(self, parent=None):
+levers.py:79: def _make(self, key: str, label: str, color: str, text: str) -> QPushButton:
+levers.py:88: def set_selected(self, resource) -> None:
+levers.py:99: def status_text(self) -> str:
+levers.py:102: def set_enabled(self, enabled: bool) -> None:
+nexus_prompt.py:18: class NexusBar(QFrame):
+nexus_prompt.py:21: def __init__(self, parent=None):
+nexus_prompt.py:42: def _style(self, alert: bool) -> None:
+nexus_prompt.py:51: def set_text(self, text: str, alert: bool = False, prefix: str = "NEXUS") -> None:
+nexus_prompt.py:60: def type_text(self, text: str, alert: bool = False, prefix: str = "NEXUS") -> None:
+nexus_prompt.py:69: def append_text(self, text: str) -> None:
+nexus_prompt.py:78: def set_idle(self) -> None:
+nexus_prompt.py:81: def _tick(self) -> None:
+nexus_prompt.py:88: def _render(self) -> None:
+nexus_prompt.py:99: class Scrim(QWidget):
+nexus_prompt.py:102: def __init__(self, parent=None):
+nexus_prompt.py:106: def paintEvent(self, _):
+nexus_prompt.py:115: class ChoiceBar(QWidget):
+nexus_prompt.py:119: def __init__(self, parent=None):
+nexus_prompt.py:130: def buttons(self) -> list:
+nexus_prompt.py:133: def has_items(self) -> bool:
+nexus_prompt.py:136: def clear(self) -> None:
+nexus_prompt.py:143: def set_choices(self, items) -> None:
+nexus_prompt.py:166: def _pick(self, option_id: str) -> None:
+panels.py:24: def _rgb(color: str) -> str:
+panels.py:29: def fmt_tminus(minutes: float) -> str:
+panels.py:34: def level_color(value: float) -> str:
+panels.py:43: def _fmt_pfu(flux: float) -> str:
+panels.py:52: class StatusBadge(QFrame):
+panels.py:55: def __init__(self, text: str, color: str, pulse: bool = False, parent=None,
+panels.py:71: def set_content(self, text: str, color: str, pulse: bool) -> None:
+panels.py:86: class HeaderBar(QWidget):
+panels.py:94: def __init__(self, state: MissionState, parent=None):
+panels.py:143: def set_space_weather(self, proton) -> None:
+panels.py:164: def refresh(self) -> None:
+panels.py:180: class AlertBanner(QFrame):
+panels.py:183: def __init__(self, state: MissionState, parent=None):
+panels.py:204: def _style(self, color: str) -> None:
+panels.py:217: def refresh(self) -> None:
+panels.py:259: class NavPanel(Panel):
+panels.py:275: def __init__(self, parent=None):
+panels.py:293: def select(self, index: int) -> None:
+panels.py:299: class CommanderCard(Panel):
+panels.py:300: def __init__(self, state: MissionState, parent=None):
+panels.py:354: def refresh(self) -> None:
+panels.py:386: class LiveFeeds(Panel):
+panels.py:391: def __init__(self, state: MissionState, parent=None):
+panels.py:421: def _set_row(self, key: str, text: str, frac: float, color: str) -> None:
+panels.py:430: def refresh(self) -> None:
+panels.py:445: class ScenarioCard(Panel):
+panels.py:458: def __init__(self, state: MissionState, parent=None):
+panels.py:480: def refresh(self) -> None:
+panels.py:496: class StatusFooter(QFrame):
+panels.py:506: def __init__(self, parent=None):
+panels.py:525: def set_ai_online(self, online) -> None:
+panels.py:530: def _rebuild(self) -> None:
+radar.py:27: class RadarWidget(QWidget):
+radar.py:30: def __init__(self, parent=None):
+radar.py:42: def set_data(self, neo) -> None:
+radar.py:77: def paintEvent(self, _):
+radar.py:154: class RadarPanel(Panel):
+radar.py:157: def __init__(self, parent=None):
+radar.py:178: def set_data(self, neo) -> None:
+report_strip.py:17: class ReportStrip(QFrame):
+report_strip.py:20: def __init__(self, parent=None):
+report_strip.py:67: def show_report(self, headline: str, status_text: str, level: str,
+report_strip.py:104: def hide_report(self) -> None:
+report_strip.py:109: def place(self, parent_width: int, parent_height: int) -> None:
+report_strip.py:118: def chip_texts(self) -> list:
+result_card.py:13: class ResultCard(QFrame):
+result_card.py:16: def __init__(self, parent=None):
+result_card.py:65: def _apply_style(self, color: str) -> None:
+result_card.py:73: def show_result(self, success: bool, headline: str, detail: str, stats) -> None:
+result_card.py:84: def hide_result(self) -> None:
+result_card.py:87: def place(self, parent_width: int, parent_height: int) -> None:
+result_card.py:95: def title_text(self) -> str:
+result_card.py:98: def restart_buttons(self) -> list:
+scene.py:32: def level_color(level) -> str:
+scene.py:42: class SceneView(QWidget):
+scene.py:43: def __init__(self, parent=None):
+scene.py:59: def set_destination(self, dest: str) -> None:
+scene.py:65: def set_levels(self, resources) -> None:
+scene.py:72: def flash(self, resource: str) -> None:
+scene.py:79: def has_image(self) -> bool:
+scene.py:83: def _tick(self) -> None:
+scene.py:91: def _image_rect(self) -> QRectF:
+scene.py:101: def mousePressEvent(self, event) -> None:
+scene.py:110: def paintEvent(self, _) -> None:
+theme.py:33: def footer_statuses(ai_online: bool | None = None):
+theme.py:67: def qc(hex_color: str, alpha: int = 255) -> QColor:
+transition_video.py:21: class TransitionVideo(QWidget):
+transition_video.py:24: def __init__(self, parent=None):
+transition_video.py:67: def play(self, dest: str) -> None:
+transition_video.py:85: def _check_started(self) -> None:
+transition_video.py:90: def _on_status(self, status) -> None:
+transition_video.py:95: def _on_error(self, *_args) -> None:
+transition_video.py:98: def _finish(self) -> None:
+transition_video.py:110: def keyPressEvent(self, event) -> None:
+transition_video.py:116: def mousePressEvent(self, event) -> None:
+views.py:31: def _hash_password(password: str, salt: bytes) -> str:
+views.py:35: def _load_profiles() -> dict:
+views.py:42: def verify_or_create(name: str, password: str) -> tuple[bool, str]:
+views.py:63: class LoginView(QWidget):
+views.py:72: def __init__(self, parent=None):
+views.py:115: def _submit(self) -> None:
+views.py:124: class PlaceholderView(Panel):
+views.py:127: def __init__(self, title: str, symbol: str, parent=None):
+views.py:147: class ScenarioView(Panel):
+views.py:165: def __init__(self, state: MissionState, parent=None):
+views.py:197: def show_result(self, text: str) -> None:
+views.py:205: def _clear_options(self) -> None:
+views.py:211: def _choose(self, option_id) -> None:
+views.py:220: def refresh(self) -> None:
+views.py:247: class ProgressView(Panel):
+views.py:252: def __init__(self, state: MissionState, parent=None):
+views.py:294: def refresh(self) -> None:
