@@ -70,12 +70,17 @@ class StreamWorker(QThread):
 
     def run(self):
         try:
+            sentences = []
             for kind, payload in self.backend.respond_stream(
                     self.text, self.state):
                 if self.isInterruptionRequested():
                     break
-                signal = self.sentence if kind == "sentence" else self.action
-                signal.emit(self.rid, payload)
+                if kind == "sentence":
+                    sentences.append(str(payload))
+                else:
+                    self.action.emit(self.rid, payload)
+            if sentences:
+                self.sentence.emit(self.rid, " ".join(sentences))
         except Exception as exc:
             self.sentence.emit(self.rid, f"Backend error: {exc}")
         self.done.emit(self.rid)

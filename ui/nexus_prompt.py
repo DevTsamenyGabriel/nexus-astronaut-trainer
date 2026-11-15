@@ -72,8 +72,9 @@ class NexusBar(QFrame):
         if not extra:
             return
         self._full = f"{self._full} {extra}".strip()
-        if not self._timer.isActive():
-            self._timer.start()
+        self._shown = len(self._full)          # dump instantly, no typewriter
+        self._timer.stop()
+        self._render()
 
     def set_idle(self) -> None:
         self.set_text(IDLE)
