@@ -21,6 +21,9 @@ try:
 except Exception:
     tts_eleven = None
 
+# Temporary switch for recording. Set NEXUS_MUTE=0 in .env (or change the default to "0") to bring the voice back.
+VOICE_MUTED = os.environ.get("NEXUS_MUTE", "1").strip() != "0"
+
 SAMPLE_RATE = 16000          # Whisper expects 16 kHz mono
 MAX_SECONDS = 15.0           # hard cap on one utterance
 SILENCE_RMS = 0.012          # below this = silence
@@ -121,6 +124,10 @@ class MicRecorder:
 
 def speak(text: str, on_done=None, mood: str = "") -> None:
     """Speak via ElevenLabs, falling back to Windows SAPI."""
+    if VOICE_MUTED:
+        if on_done is not None:
+            on_done()
+        return
     global _proc, _el_playing
     wav = None
     if tts_eleven is not None:
@@ -216,6 +223,8 @@ class SpeechQueue:
             return self._pending == 0
 
     def say(self, sentence: str, mood: str = "") -> None:
+        if VOICE_MUTED:
+            return
         if not sentence.strip():
             return
         with self._lock:
