@@ -58,17 +58,22 @@ class NexusBar(QFrame):
         self._render()
 
     def type_text(self, text: str, alert: bool = False, prefix: str = "NEXUS") -> None:
-        """Show the text at once (typing effect disabled)."""
-        self.set_text(text, alert=alert, prefix=prefix)
+        """Type the text out character by character."""
+        self._prefix = prefix
+        self._full = " ".join(str(text or "").split())
+        self._shown = 0
+        self._style(bool(alert))
+        self._render()
+        self._timer.start()
 
     def append_text(self, text: str) -> None:
-        """Add a sentence to the banner text at once."""
+        """Add a sentence to what is being typed (used while an answer streams in)."""
         extra = " ".join(str(text or "").split())
         if not extra:
             return
         self._full = f"{self._full} {extra}".strip()
-        self._shown = len(self._full)
-        self._render()
+        if not self._timer.isActive():
+            self._timer.start()
 
     def set_idle(self) -> None:
         self.set_text(IDLE)

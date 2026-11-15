@@ -22,7 +22,7 @@ except Exception:
     tts_eleven = None
 
 # Temporary switch for recording. Set NEXUS_MUTE=0 in .env (or change the default to "0") to bring the voice back.
-VOICE_MUTED = os.environ.get("NEXUS_MUTE", "1").strip() != "0"
+VOICE_MUTED = os.environ.get("NEXUS_MUTE", "0").strip() != "0"
 
 SAMPLE_RATE = 16000          # Whisper expects 16 kHz mono
 MAX_SECONDS = 15.0           # hard cap on one utterance
