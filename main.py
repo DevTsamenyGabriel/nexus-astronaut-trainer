@@ -146,6 +146,9 @@ class Controller(QObject):
     _intel_mode = False
     _intel_sourced = False
     _daily_options: list = []
+    _spoken_key = None
+    _welcome_pending = False
+    _welcome_hold = False
 
     def __init__(self, app: QApplication, name: str = "") -> None:
         super().__init__()
@@ -424,6 +427,7 @@ class Controller(QObject):
         except Exception:
             pass          # a highlight glitch must never block a command
         self._offer_daily()
+        self._speak_event_prompt()
         return reply
 
     def _run_command(self, clean: str) -> str:
@@ -644,6 +648,43 @@ class Controller(QObject):
                  for key in keys]
         return text, items, keys
 
+    def _say_banner(self, text: str) -> None:
+        """Speak exactly what the top banner shows. One voice for NEXUS: and NASA:."""
+        try:
+            clean = " ".join(str(text or "").split())
+            if clean:
+                self.speech.say(clean)
+        except Exception:
+            pass
+
+    def _welcome_text(self, sim) -> str:
+        name = (self.commander_name or COMMANDER_NAME)
+        planet = str(getattr(sim, "destination", "moon")).title()
+        return (f"Welcome to mission control, Commander {name}. I'm NEXUS, your NASA librarian "
+                "with a flight suit. Ask me anything about space weather or radiation, by typing "
+                "or speaking, and I'll pull the answer from NASA's own files. "
+                f"{config.MISSION_DAYS} days on {planet}. Let's go!")
+
+    def _release_welcome(self) -> None:
+        if not self._welcome_hold:
+            return
+        self._welcome_hold = False
+        self._offer_daily()
+
+    def _speak_event_prompt(self) -> None:
+        """Speak the event question once, when it appears in the banner."""
+        try:
+            event = self.backend.get_active_event()
+            if not event or self.window.mission.debrief_active:
+                return
+            key = ("event", str(event.get("id")), int(self.backend.get_state().day))
+            if key == self._spoken_key:
+                return
+            self._spoken_key = key
+            self._say_banner(str(event.get("question", "")))
+        except Exception:
+            pass
+
     def _offer_daily(self) -> None:
         """Show today's question in the NEXUS bar with three chips, or hide it."""
         try:
@@ -658,9 +699,24 @@ class Controller(QObject):
                 return
             if self.backend.get_active_event() or mission.debrief_active:
                 return                      # the event card or debrief owns the bar
+            if self._welcome_pending:
+                self._welcome_pending = False
+                self._welcome_hold = True
+                welcome = self._welcome_text(sim)
+                mission.nexus_bar.type_text(welcome)
+                self._say_banner(welcome)
+                QTimer.singleShot(12000, self._release_welcome)   # safety if audio fails
+                return
+            if self._welcome_hold:
+                return
             text, items, keys = self._daily_prompt(sim)
             self._daily_options = keys
             mission.show_daily(int(sim.day), text, items)
+            if getattr(mission, "_card_mode", None) == "daily":
+                key = ("daily", int(sim.day))
+                if key != self._spoken_key:
+                    self._spoken_key = key
+                    self._say_banner(text)
         except Exception:
             pass
 
@@ -717,8 +773,8 @@ class Controller(QObject):
         return best
 
     def _show_debrief(self, event: dict, option_id: str, note: str) -> None:
-        """NASA explanation in the bar after a choice. Retrieval only, always cited.
-        Unmapped events or empty retrieval show the exact refusal."""
+        """NASA line in the banner after a choice, and spoken. Retrieval only, always cited.
+        The lead-in wording is fixed code: it never decides an outcome."""
         try:
             event_id = str((event or {}).get("id", ""))
             line = REFUSAL
@@ -727,26 +783,29 @@ class Controller(QObject):
                 prefer, limit = prefer_for(event_id)
                 hit = evidence(question, prefer=prefer, limit=limit) or {}
                 if hit.get("ok"):
-                    tag = ""
+                    lead, tag = "Here's what the files say: ", ""
                     aligned = aligned_option(event_id)
                     if aligned:
-                        label = ""
-                        for option in (event or {}).get("options", []):
-                            if str(option.get("id")) == str(aligned):
-                                label = str(option.get("label", ""))
                         if option_id == aligned:
-                            tag = " Your choice matches what the indexed NASA documents support."
-                        elif label:
-                            tag = f' The indexed NASA documents support "{label}" instead.'
+                            lead = "Nice call, Commander! The files agree: "
+                        else:
+                            lead = "Close one, Commander! The files say: "
+                            label = ""
+                            for option in (event or {}).get("options", []):
+                                if str(option.get("id")) == str(aligned):
+                                    label = str(option.get("label", ""))
+                            if label:
+                                tag = f' The indexed documents support "{label}" instead.'
                     labels = short_sources([hit.get("source", "")])
                     cite = f" ({labels[0]})" if labels else ""
-                    line = str(hit.get("text", "")) + cite + tag
+                    line = lead + str(hit.get("text", "")) + cite + tag
             chip = "CONTINUE  ›  NEXT DAY"
             if config.is_quick():
                 day = int(self.backend.get_state().day)
                 chip = ("CONTINUE  ›  RESULTS" if day >= config.MISSION_DAYS
                         else f"CONTINUE  ›  DAY {day + 1}")
             self.window.mission.debrief_start(line, chip_label=chip)
+            self._say_banner(line.replace(", p. ", ", page "))
         except Exception:
             pass
 
@@ -840,6 +899,7 @@ class Controller(QObject):
                 briefing.hide_briefing()
             except Exception:
                 pass
+        self._welcome_pending = True
         self._on_restart(dest)
 
     def _on_restart(self, dest: str) -> None:
@@ -979,7 +1039,8 @@ class Controller(QObject):
             except Exception:
                 pass
         self.orb.say(sentence, 5.0)
-        self.speech.say(sentence, mood=self._speech_mood())
+        if self._intel_mode:
+            self.speech.say(sentence, mood=self._speech_mood())      # only science answers shown in the banner are spoken here
 
     def _speech_mood(self) -> str:
         """ElevenLabs v3 audio tag for the current moment."""
@@ -1029,6 +1090,8 @@ class Controller(QObject):
             self.window.chat.set_speaking(False)       # NEW
             if not self.listening and self.orb.state_name == "speaking":
                 self.orb.set_state(self._base_state())
+            if self._welcome_hold:
+                self._release_welcome()
         self._update_wake()
 
     def run_action(self, action: dict) -> None:

@@ -32,7 +32,7 @@ MODEL_ID = os.environ.get("ELEVENLABS_MODEL_ID", "eleven_v3")
 FALLBACK_MODEL_ID = "eleven_multilingual_v2"   # no audio-tag support
 _TAG_MODEL = "eleven_v3"     # models that understand [audio tags]
 SAMPLE_RATE = 16000          # matches output_format=pcm_16000
-MAX_CHARS = 400              # protects the character quota
+MAX_CHARS = 700              # protects the character quota
 SPEED = float(os.environ.get("ELEVENLABS_SPEED", "1.15"))  # 0.7-1.2, medium-fast
 LAST_ERROR = ""
 

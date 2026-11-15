@@ -150,7 +150,7 @@ class NexusOrb(QWidget):
         if s == "thinking":
             return 3.0 + 2.0 * math.sin(6 * th - t * 4)
         if s == "speaking":
-            return 2.0 + 17.0 * self._talk * (
+            return 2.0 + 28.0 * self._talk * (
                 0.5 + 0.5 * math.sin(4 * th + t * 6))
         pulse = 0.5 + 0.5 * math.sin(t * 5.5)      # alert
         return 3 + 9 * pulse * (0.6 + 0.4 * math.sin(8 * th + t * 3))
@@ -226,7 +226,7 @@ class NexusOrb(QWidget):
             p.drawArc(rect, int((start + 180) * 16), 40 * 16)
 
         # Core orb
-        core_r = 36 + 4 * pulse
+        core_r = 36 + 4 * pulse + 8 * self._talk
         cg = QRadialGradient(center, core_r, QPointF(cx - core_r * 0.3, cy - core_r * 0.35))
         cg.setColorAt(0.0, QColor(min(255, r + 110), min(255, g + 90), min(255, b + 70), 255))
         cg.setColorAt(0.55, QColor(r, g, b, 210))
