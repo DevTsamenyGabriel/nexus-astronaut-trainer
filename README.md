@@ -9,6 +9,19 @@ You are the Commander of a Moon or Mars outpost. Balance power, oxygen, water, f
 
 ---
 
+## 📸 Screenshots
+
+| | |
+|---|---|
+| **Login** — enter your commander name to begin | ![Login screen](Images_md/Login_Screen.png) |
+| **Destination select** — choose Moon or Mars, then Quick Run or Full Mission | ![Planet choice](Images_md/Planet_Choice.png) |
+| **Mission Control** — the Moon outpost dashboard: telemetry, radar, feeds and the NEXUS bar | ![Moon dashboard](Images_md/Main_moon_dashboard.png) |
+| **Live simulation** — resource bars, solar-weather status and crew radiation in play | ![Moon simulation](Images_md/moon_simulation.png) |
+| **Mars outpost** — the same mission-control loop on the Red Planet | ![Mars dashboard](Images_md/main_mars_dashboard.png) |
+| **Space Hazards** — the built-in knowledge base NEXUS answers science questions from | ![Space hazards](Images_md/Space_Hazard.png) |
+
+---
+
 ## ✨ What makes NEXUS different
 
 > **Rules are code. NASA explains.**

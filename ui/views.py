@@ -78,12 +78,12 @@ class LoginView(QWidget):
         outer.addStretch(1)
 
         box = QWidget()
-        box.setMaximumWidth(300)
+        box.setMaximumWidth(380)
         form = QVBoxLayout(box)
         form.setSpacing(12)
 
         title = QLabel("NEXUS TRAINER")
-        title.setFont(mono(34, True, 6.0))
+        title.setFont(mono(28, True, 3.0))
         title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         title.setStyleSheet(f"color:{theme.CYAN};")
         sub = QLabel("ENTER YOUR NAME, COMMANDER")
