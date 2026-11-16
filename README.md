@@ -35,6 +35,27 @@ You are the Commander of a Moon or Mars outpost. Balance power, oxygen, water, f
 An AI never decides whether your choice was right, never invents events, and never changes a number.
 
 ---
+## 🌐 Live data sources
+
+NEXUS shows real space data next to the simulation. It is **display only** and never changes a simulation value. Results are cached in `data_cache/`, so the app still works offline.
+
+| Source | What it does in NEXUS | Link |
+|---|---|---|
+| **NOAA SWPC**: GOES integral proton flux (≥10 MeV) | Shows the real solar radiation level and its NOAA S-scale (S0 to S5) as the chip in the header bar | [Data feed](https://services.swpc.noaa.gov/json/goes/primary/integral-protons-6-hour.json) · [Directory](https://services.swpc.noaa.gov/json/goes/primary/) · [Space Weather Prediction Center](https://www.swpc.noaa.gov/) |
+| **NASA NeoWs**: Near Earth Object Web Service | Lists the asteroids passing Earth today, with miss distance, speed and size, on the Asteroid Radar panel | [NASA Open APIs](https://api.nasa.gov) · endpoint: `https://api.nasa.gov/neo/rest/v1/feed` |
+| **NASA DONKI**: Space Weather Database Of Notifications, Knowledge, Information | Provides the history of recent solar energetic particle (radiation storm) events | [NASA Open APIs](https://api.nasa.gov) · endpoint: `https://api.nasa.gov/DONKI/SEP` |
+
+NASA's APIs use `NASA_API_KEY` from your `.env`, or the shared `DEMO_KEY` if you don't set one. You can get a free key at [api.nasa.gov](https://api.nasa.gov). NOAA needs no key.
+
+Moon and Mars conditions (lunar night, Martian dust) are **simulated** rules, not real data.
+
+
+
+
+
+
+
+---
 
 ## 🚀 The 3-day Quick Run (demo mode)
 
