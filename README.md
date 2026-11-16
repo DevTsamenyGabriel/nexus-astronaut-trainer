@@ -135,7 +135,7 @@ ELEVENLABS_API_KEY=your_key      # optional voice
 ELEVENLABS_VOICE_ID=your_voice_id
 ELEVENLABS_SPEED=1.15            # optional
 NASA_API_KEY=your_key            # optional, otherwise DEMO_KEY is used
-NEXUS_MUTE=1                     # 1 = voice muted. Use 0 (or remove) to speak.
+NEXUS_MUTE=0                     # 1 = voice muted. Use 0 (or remove) to speak.
 ```
 
 **2. NASA index.** The app needs the `chroma_db/` folder in the project root.
