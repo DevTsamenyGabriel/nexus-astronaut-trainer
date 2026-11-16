@@ -193,4 +193,4 @@ Built in Accra, Ghana, for NASA Space Apps Challenge 2026.
 
 ## 📄 License
 
-_Add a license (for example MIT) if you want others to reuse the code._
+MIT
