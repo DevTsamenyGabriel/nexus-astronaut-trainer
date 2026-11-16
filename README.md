@@ -3,7 +3,7 @@
 **A mission-control trainer for the next generation of astronauts.**
 Built for the **NASA Space Apps Challenge 2026**: *"Build a Junior Astronaut Mission Trainer."*
 
-You are the Commander of a Moon or Mars outpost. Balance power, oxygen, water, food and crew radiation, face space-weather emergencies, then learn from NASA's own documents what you should have done.
+You are the Commander of a Moon or Mars outpost. Balance power, oxygen, water, food and crew radiation, face space-weather emergencies, then learn from NASA's own documents with a Train Live LLM what you should have done.
 
 🎥 **Demo video:** [Watch on YouTube](https://youtu.be/htp7CIZS3vw)
 
@@ -79,6 +79,26 @@ Type them in the bottom bar, or say them with the mic.
 | `what / why / how / explain …`  | Ask NEXUS a science question, answered only from the NASA documents, with sources |
 
 All numbers are **simulation values**. Radiation figures are planning references and are **never medical clearance**.
+
+---
+
+---
+
+## 🎙️ Meet NEXUS, your live mission copilot
+
+NEXUS is a glowing orb that listens, talks back, and coaches you through the mission like a real-time NASA instructor.
+
+- **Wake it like Siri.** Say **"Hey NEXUS"**, click the orb, or hold **Space** to talk.
+- **Voice to voice.** You speak, NEXUS speaks back. Typed and spoken commands go through the same handler.
+- **Run the mission hands-free.** After the start screen, you drive the mission by speaking or typing: *"boost oxygen"*, *"go"*, *"go to shelter"*. The simulation applies it. No manual clicking through menus.
+- **Ask like you would ask a NASA coach.** *"Why should the crew shelter during a solar particle event?"* NEXUS answers from the NASA and NOAA documents and shows the **source and page**.
+- **It explains your choices.** After every decision, the top banner flips from `NEXUS:` to `NASA:` with the retrieved passage.
+- **It stays honest.** If the documents don't contain the answer, it says: *"I don't have that in my NASA sources."*
+
+**Try saying:**
+`"Hey NEXUS, quick run on Mars"` · `"boost oxygen"` · `"go"` · `"go to shelter"` · `"What is a geomagnetic storm?"`
+
+
 
 ---
 
